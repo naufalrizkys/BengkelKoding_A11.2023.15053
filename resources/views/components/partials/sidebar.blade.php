@@ -3,7 +3,7 @@
     {{-- ================= BRAND ================= --}}
     <div class="px-5 py-5 border-b border-white/10">
         <div class="flex items-center gap-3">
-            <img src="{{ asset('images/logo-bengkot.png') }}" class="w-10 h-10 rounded-xl object-cover">
+            <img src="{{ asset('image/logo-bengkot.png') }}" class="w-10 h-10 rounded-xl object-cover">
 
             <div>
                 <div class="font-bold text-white text-lg leading-tight">
@@ -37,7 +37,7 @@
         @php
         $baseLink = "flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm transition-all duration-200";
         $inactive = "text-slate-300 hover:bg-white/10 hover:text-white";
-        $active = "bg-gradient-to-r from-white/20 to-white/5 text-white font-semibold border border-indigo-400 border-2";
+        $active = "bg-white/10 text-white font-semibold border border-white/40 shadow-[0_0_15px_rgba(255,255,255,0.1)]";
         @endphp
 
 
@@ -55,8 +55,9 @@
                 <i class="fas fa-gauge-high w-4 text-center"></i>
                 Dashboard Admin
             </a>
+
             <a href="{{ route('polis.index') }}"
-                class="{{ $baseLink }} {{ request()->routeIs('pilis.index) ? $active : $inactive }}">
+                class="{{ $baseLink }} {{ request()->routeIs('polis.index') ? $active : $inactive }}">
                 <i class="fas fa-hospital w-4 text-center"></i>
                 Manajemen Poli
             </a>
@@ -76,7 +77,7 @@
 
             <a href="{{ route('pasien.dashboard') }}"
                 class="{{ $baseLink }} {{ request()->routeIs('pasien.dashboard') ? $active : $inactive }}">
-                <i class="fas fa-house-medical w-4 text-center"></i>
+                <i class="fas fa-house-user w-4 text-center"></i>
                 Dashboard Pasien
             </a>
 
@@ -108,7 +109,7 @@
 
     {{-- ================= LOGOUT ================= --}}
     <div class="p-4 border-t border-white/10">
-        <form method="POST" action="/logout">
+        <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button type="submit"
                 class="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-red-500 hover:bg-red-600 text-white text-sm font-semibold transition-all">

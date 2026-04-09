@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Poli;
 use Illuminate\Http\Request;
 
 class AdminPoliController extends Controller
@@ -11,7 +12,8 @@ class AdminPoliController extends Controller
      */
     public function index()
     {
-        //
+        $polis = Poli::all();
+        return view('admin.polis.index', compact('polis'));
     }
 
     /**
@@ -19,7 +21,7 @@ class AdminPoliController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.polis.create');
     }
 
     /**
@@ -27,7 +29,14 @@ class AdminPoliController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_poli' => 'required|string|max:255',
+            'keterangan' => 'required|string',
+        ]);
+
+        Poli::create($request->all());
+
+        return redirect()->route('polis.index')->with('success', 'Poli berhasil ditambahkan!');
     }
 
     /**
@@ -43,7 +52,8 @@ class AdminPoliController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $poli = Poli::findOrFail($id);
+        return view('admin.polis.edit', compact('poli'));
     }
 
     /**
@@ -51,7 +61,15 @@ class AdminPoliController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nama_poli' => 'required|string|max:255',
+            'keterangan' => 'required|string',
+        ]);
+
+        $poli = Poli::findOrFail($id);
+        $poli->update($request->all());
+
+        return redirect()->route('polis.index')->with('success', 'Poli berhasil diperbarui!');
     }
 
     /**
@@ -59,6 +77,9 @@ class AdminPoliController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $poli = Poli::findOrFail($id);
+        $poli->delete();
+
+        return redirect()->route('polis.index')->with('success', 'Poli berhasil dihapus!');
     }
 }
