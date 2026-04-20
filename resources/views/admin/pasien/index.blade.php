@@ -1,18 +1,18 @@
-<x-layouts.app title="Data Dokter">
+<x-layouts.app title="Data Pasien">
 
     <div class="flex items-center justify-between mb-6">
-        <h2 class="text-2xl font-bold text-slate-800">Data Dokter</h2>
+        <h2 class="text-2xl font-bold text-slate-800">Data Pasien</h2>
 
-        <a href="{{ route('dokter.create') }}" class="btn bg-[#2d4499] hover:bg-[#1e2d6b] text-white border-none rounded-lg px-5">
+        <a href="{{ route('pasien.create') }}" class="btn bg-[#2d4499] hover:bg-[#1e2d6b] text-white border-none rounded-lg px-5">
             <i class="fas fa-plus"></i>
-            Tambah Dokter
+            Tambah Pasien
         </a>
     </div>
 
-    @if(session('success'))
-    <div class="alert alert-success mb-4 rounded-xl shadow-sm">
-        <i class="fas fa-circle-check"></i>
-        <span>{{ session('success') }}</span>
+    @if(session('message'))
+    <div class="alert alert-{{ session('type') }} mb-4 rounded-xl shadow-sm">
+        <i class="fas fa-circle-{{ session('type') === 'success' ? 'check' : 'xmark' }}"></i>
+        <span>{{ session('message') }}</span>
     </div>
     @endif
 
@@ -24,28 +24,30 @@
                         <tr>
                             <th class="px-6 py-4">Nama</th>
                             <th class="px-6 py-4">Email</th>
-                            <th class="px-6 py-4">Poli</th>
+                            <th class="px-6 py-4">No KTP</th>
                             <th class="px-6 py-4">No HP</th>
+                            <th class="px-6 py-4">Alamat</th>
                             <th class="px-6 py-4 text-right">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($dokters as $dokter)
+                        @forelse($pasiens as $pasien)
                         <tr class="hover:bg-slate-50 transition">
-                            <td class="px-6 py-4 font-semibold text-slate-800">{{ $dokter->nama }}</td>
-                            <td class="px-6 py-4 text-slate-500">{{ $dokter->email }}</td>
-                            <td class="px-6 py-4 text-slate-500">{{ $dokter->poli?->nama_poli ?? '-' }}</td>
-                            <td class="px-6 py-4 text-slate-500">{{ $dokter->no_hp }}</td>
+                            <td class="px-6 py-4 font-semibold text-slate-800">{{ $pasien->nama }}</td>
+                            <td class="px-6 py-4 text-slate-500">{{ $pasien->email }}</td>
+                            <td class="px-6 py-4 text-slate-500">{{ $pasien->no_ktp }}</td>
+                            <td class="px-6 py-4 text-slate-500">{{ $pasien->no_hp }}</td>
+                            <td class="px-6 py-4 text-slate-500">{{ $pasien->alamat }}</td>
                             <td class="px-6 py-4 text-right">
                                 <div class="flex justify-end gap-2">
-                                    <a href="{{ route('dokter.edit', $dokter->id) }}" class="btn btn-sm bg-amber-500 hover:bg-amber-600 text-white border-none rounded-lg px-4">
+                                    <a href="{{ route('pasien.edit', $pasien->id) }}" class="btn btn-sm bg-amber-500 hover:bg-amber-600 text-white border-none rounded-lg px-4">
                                         <i class="fas fa-pen-to-square"></i>
                                         Edit
                                     </a>
-                                    <form action="{{ route('dokter.destroy', $dokter->id) }}" method="POST">
+                                    <form action="{{ route('pasien.destroy', $pasien->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" onclick="return confirm('Yakin ingin menghapus dokter ini?')" class="btn btn-sm bg-red-500 hover:bg-red-600 text-white border-none rounded-lg px-4">
+                                        <button type="submit" onclick="return confirm('Yakin ingin menghapus pasien ini?')" class="btn btn-sm bg-red-500 hover:bg-red-600 text-white border-none rounded-lg px-4">
                                             <i class="fas fa-trash"></i>
                                             Hapus
                                         </button>
@@ -55,9 +57,9 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="5" class="text-center py-14 text-slate-400">
+                            <td colspan="6" class="text-center py-14 text-slate-400">
                                 <i class="fas fa-inbox text-3xl mb-3 block"></i>
-                                Belum ada data dokter
+                                Belum ada data pasien
                             </td>
                         </tr>
                         @endforelse
