@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('poli', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_poli', 25);
+            $table->string('nama_poli', 255);
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });
