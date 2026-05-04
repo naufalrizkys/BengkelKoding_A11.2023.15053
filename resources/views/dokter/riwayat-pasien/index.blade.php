@@ -53,7 +53,7 @@
 
                             <td class="px-6 py-4 text-right">
                                 <a href="{{ route('riwayat-pasien.show', $riwayat) }}"
-                                    class="btn btn-sm bg-blue-500 hover:bg-blue-600 text-white border-none rounded-lg px-4">
+                                    class="btn btn-sm btn-info text-white border-none rounded-lg px-4">
                                     <i class="fas fa-eye"></i>
                                     Detail
                                 </a>
