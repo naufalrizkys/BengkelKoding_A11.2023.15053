@@ -12,7 +12,18 @@ class Obat extends Model
         'nama_obat',
         'kemasan',
         'harga',
+        'stok',
     ];
+
+    public function isStokHabis(): bool
+    {
+        return $this->stok <= 0;
+    }
+
+    public function isStokMenipis(): bool
+    {
+        return $this->stok > 0 && $this->stok <= 10;
+    }
 
     public function detailPeriksas()
     {

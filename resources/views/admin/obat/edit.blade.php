@@ -33,6 +33,18 @@
                         <input type="number" name="harga" value="{{ old('harga', $obat->harga) }}" placeholder="Masukkan harga..." step="0.01" min="0" class="input input-bordered w-full rounded-lg text-sm @error('harga') input-error @enderror" required>
                         @error('harga')<label class="label pt-1"><span class="label-text-alt text-red-500">{{ $message }}</span></label>@enderror
                     </div>
+
+                    <div class="form-control">
+                        <label class="label pb-1"><span class="text-sm font-semibold text-gray-700">Stok <span class="text-red-500">*</span></span></label>
+                        <input type="number" name="stok" value="{{ old('stok', $obat->stok) }}" placeholder="Masukkan jumlah stok..." min="0" class="input input-bordered w-full rounded-lg text-sm @error('stok') input-error @enderror" required>
+                        @error('stok')<label class="label pt-1"><span class="label-text-alt text-red-500">{{ $message }}</span></label>@enderror
+                        <label class="label pt-1">
+                            <span class="label-text-alt text-slate-400">
+                                Untuk penyesuaian stok manual, gunakan tombol
+                                <a href="{{ route('obat.stok', $obat->id) }}" class="text-blue-500 underline">Kelola Stok</a>.
+                            </span>
+                        </label>
+                    </div>
                 </div>
 
                 <div class="flex gap-3 mt-6">
